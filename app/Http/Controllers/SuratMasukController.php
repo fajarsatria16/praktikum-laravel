@@ -38,6 +38,31 @@ class SuratMasukController extends Controller
 
     public function show($id)
     {
-        return 'Halaman Surat Masuk dari dengan Id : '.$id;
+        //return 'Halaman Surat Masuk dari dengan Id : '.$id;
+        $suratMasukDetail = [
+            1=>[
+                'id'            => 1,
+                'nomor_surat'   => 'SM-01',
+                'tanggal'       => '2025-08-10',
+                'pengirim'      => 'Yogi',
+                'perihal'       => 'Undangan Ngantri BBM',
+            ],
+            2=>[
+                'id'            => 2,
+                'nomor_surat'   => 'SM-02',
+                'tanggal'       => '2025-08-11',
+                'pengirim'      => 'Wikan',
+                'perihal'       => 'Undangan',
+            ],
+            3=>[
+                'id'            => 3,
+                'nomor_surat'   => 'SM-03',
+                'tanggal'       => '2025-08-12',
+                'pengirim'      => 'Fajar',
+                'perihal'       => 'Undangan',
+            ]
+        ];
+        $surat = $suratMasukDetail[$id] ?? null;
+        return view('surat-masuk.show', compact('surat'));
     }
 }

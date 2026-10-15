@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Masuk</title>
-</head>
-<body>
+@extends('layouts.app')
+@section('title', 'Halaman Surat Masuk')
+@section('content')
     <h1>Halaman Surat Masuk</h1>
 
     <table border="1" cellpadding="4" cellspacing="0">
@@ -37,5 +32,4 @@
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+@endsection
