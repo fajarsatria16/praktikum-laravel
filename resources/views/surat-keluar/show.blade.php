@@ -24,6 +24,11 @@
         {{ $surat->perihal}}
     </p>
 
+    <p>
+        <strong>Keterangan:</strong>
+        {{ $surat->keterangan ?? '-' }}
+    </p>
+
 @else
     <p>Surat Tidak Ditemukan</p>
 @endif

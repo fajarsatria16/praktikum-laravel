@@ -2,6 +2,13 @@
 @section('title', 'Halaman Surat Keluar')
 @section('content')
     <h1>Halaman Surat Keluar</h1>
+
+    <a href="{{ route('surat-keluar.create') }}">+ Tambah Surat Keluar</a>
+
+    @if (session('success'))
+        <p style="color:green">{{ session('success') }}</p>
+    @endif
+
     <table border="1" cellpadding="4" cellspacing="0">
         <thead>
             <tr>
@@ -25,9 +32,13 @@
                 <td>{{ $surat->perihal }}</td>
                 <td>{{ $surat->keterangan }}</td>
                 <td>
-                    <a href="{{ route('surat-keluar.show', $surat->id) }}">
-                        Detail
-                    </a>
+                    <a href="{{ route('surat-keluar.show', $surat->id) }}">Detail</a>
+                    <a href="{{ route('surat-keluar.edit', $surat->id) }}">Edit</a>
+                    <form action="{{ route('surat-keluar.destroy', $surat->id) }}" method="POST" style="display:inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('Hapus surat keluar ini?')">Hapus</button>
+                    </form>
                 </td>
             </tr>
             @empty
