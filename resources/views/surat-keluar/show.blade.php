@@ -25,10 +25,25 @@
             {{ $surat->perihal }}
         </p>
 
-        <p>
+        <p class="border-b border-cream pb-2">
+            <strong class="inline-block w-32 text-slate-500">Kategori</strong>
+            {{ $surat->category?->nama ?? 'Tanpa kategori' }}
+        </p>
+
+        <p class="border-b border-cream pb-2">
             <strong class="inline-block w-32 text-slate-500">Keterangan</strong>
             {{ $surat->keterangan ?? '-' }}
         </p>
+
+        @if ($surat->lampiran)
+            <p>
+                <strong class="inline-block w-32 text-slate-500">Lampiran</strong>
+                <a href="{{ asset('storage/' . $surat->lampiran) }}" target="_blank" rel="noopener"
+                   class="text-sage font-semibold underline hover:text-[#4b6e58]">
+                    Lihat lampiran
+                </a>
+            </p>
+        @endif
     </div>
 @else
     <p class="p-4 bg-red-50 text-red-600 border border-red-200 rounded-md text-sm">Surat Tidak Ditemukan</p>

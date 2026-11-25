@@ -20,6 +20,31 @@
         </p>
     @endif
 
+    <form method="GET" action="{{ route('surat-keluar.index') }}" class="flex flex-wrap items-center gap-3 mb-4">
+        <input type="text" name="q" value="{{ request('q') }}"
+            placeholder="Nomor, tujuan, atau perihal"
+            class="flex-1 min-w-[200px] px-3 py-2 text-sm border border-tan rounded-md focus:outline-none focus:ring-2 focus:ring-sage">
+
+        <select name="category_id"
+            class="px-3 py-2 text-sm border border-tan rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-sage">
+            <option value="">Semua kategori</option>
+            @foreach ($categories as $kategori)
+                <option value="{{ $kategori->id }}" @selected(request('category_id') == $kategori->id)>
+                    {{ $kategori->nama }}
+                </option>
+            @endforeach
+        </select>
+
+        <button type="submit"
+            class="px-4 py-2 bg-sage hover:bg-[#4b6e58] text-white text-sm font-medium rounded-md cursor-pointer">
+            Cari / Filter
+        </button>
+        <a href="{{ route('surat-keluar.index') }}"
+            class="px-4 py-2 bg-ivory border border-tan text-slate-700 text-sm font-medium rounded-md hover:bg-cream">
+            Reset
+        </a>
+    </form>
+
     <div class="overflow-x-auto rounded-lg border border-cream">
         <table class="w-full text-sm text-left border-collapse">
             <thead class="bg-cream text-slate-800 uppercase text-xs">
@@ -29,19 +54,23 @@
                     <th class="px-4 py-3">Tanggal</th>
                     <th class="px-4 py-3">Tujuan</th>
                     <th class="px-4 py-3">Perihal</th>
-                    <th class="px-4 py-3">Keterangan</th>
+                    <th class="px-4 py-3">Kategori</th>
                     <th class="px-4 py-3">Aksi</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-cream">
                 @forelse ($suratKeluar as $surat)
                 <tr class="hover:bg-ivory">
-                    <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                    <td class="px-4 py-3">{{ $suratKeluar->firstItem() + $loop->index }}</td>
                     <td class="px-4 py-3 font-medium">{{ $surat->nomor_surat }}</td>
                     <td class="px-4 py-3">{{ $surat->tanggal }}</td>
                     <td class="px-4 py-3">{{ $surat->tujuan }}</td>
                     <td class="px-4 py-3">{{ $surat->perihal }}</td>
-                    <td class="px-4 py-3">{{ $surat->keterangan ?? '-' }}</td>
+                    <td class="px-4 py-3">
+                        <span class="px-2 py-0.5 text-xs rounded bg-ivory border border-cream text-slate-700">
+                            {{ $surat->category?->nama ?? 'Tanpa kategori' }}
+                        </span>
+                    </td>
                     <td class="px-4 py-3">
                         <div class="flex items-center gap-2">
                             <a href="{{ route('surat-keluar.show', $surat->id) }}"
@@ -73,5 +102,9 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
+
+    <div class="mt-4">
+        {{ $suratKeluar->links() }}
     </div>
 @endsection
